@@ -1,32 +1,51 @@
 import styled from 'styled-components/macro'
 import { useEffect, useState } from 'react'
 import githubApi from './service/githubAPI'
+import SearchUser from './components/SearchUser'
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
+import RepositoryBox from './components/RepositoryBox'
+import PullPage from './components/PullPage'
 
 function App() {
   const [profile, setProfile] = useState({})
   const [error, setError] = useState('')
+  // const [url, setUrl] = useHistory()
 
-  useEffect(() => {
+  const searchForAUser = profile => {
     githubApi
-      .get('https://api.github.com/user')
+      .get('https://api.github.com/users/' + profile)
       .then(response => response.data)
       .then(setProfile)
       .catch(error => setError(error.response.status))
-  }, [])
-
-  if (error) {
-    return (
-      <Page>
-        <img src={`https://http.cat/${error}`} alt="" />
-      </Page>
-    )
   }
 
   return (
-    <Page>
-      <h1>Hallo, {profile.login} 👋🏽</h1>
-      <Avatar src={profile.avatar_url} />
-    </Page>
+    <Router>
+      <Switch>
+        <Route path={'/users/:username/:repo/pulls'}>
+          <section className={'header'}>
+            <h1>{profile?.login}</h1>
+            <Avatar src={profile?.avatar_url} />
+          </section>
+          <PullPage />
+        </Route>
+        <Route path={'/users/:username/repos'}>
+          <section className={'header'}>
+            <h1> {profile?.login}</h1>
+            <Avatar src={profile?.avatar_url} />
+          </section>
+          <RepositoryBox />
+        </Route>
+        <Route path={['/', '/home']}>
+          <Page>
+            <SearchUser onClickSearch={searchForAUser} />
+            <h1>Hallo, {profile.login} </h1>
+            <Avatar src={profile.avatar_url} />
+            <Link to={'/users/' + profile.login + '/repos'}>Repositories</Link>
+          </Page>
+        </Route>
+      </Switch>
+    </Router>
   )
 }
 
