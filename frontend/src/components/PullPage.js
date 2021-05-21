@@ -5,7 +5,6 @@ import githubApi from '../service/githubAPI'
 export default function PullPage() {
   const [pullRequests, setPullRequests] = useState([])
   const { username, repo } = useParams()
-
   useEffect(() => {
     console.log(repo)
     console.log(repo.name)
@@ -25,7 +24,14 @@ export default function PullPage() {
       <Link to={'/users/' + username + '/repos'}>back</Link>
       <ul>
         {pullRequests.map(pull => (
-          <li key={pull.id}>{pull.title}</li>
+          <li key={pull.id}>
+            ID: {pull.id}
+            <br />
+            Title: {pull.title}
+            <br />
+            Status: {pull.state}
+            <br />
+          </li>
         ))}
       </ul>
     </section>

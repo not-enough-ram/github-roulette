@@ -23,17 +23,17 @@ function App() {
     <Router>
       <Switch>
         <Route path={'/users/:username/:repo/pulls'}>
-          <section className={'header'}>
+          <Header>
             <h1>{profile?.login}</h1>
             <Avatar src={profile?.avatar_url} />
-          </section>
+          </Header>
           <PullPage />
         </Route>
         <Route path={'/users/:username/repos'}>
-          <section className={'header'}>
+          <Header>
             <h1> {profile?.login}</h1>
             <Avatar src={profile?.avatar_url} />
-          </section>
+          </Header>
           <RepositoryBox />
         </Route>
         <Route path={['/', '/home']}>
@@ -67,4 +67,11 @@ const Avatar = styled.img`
   height: 200px;
   width: 200px;
   border-radius: 50%;
+`
+
+const Header = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
 `
