@@ -38,7 +38,7 @@ function App() {
         </Route>
         <Route path={['/', '/home']}>
           <Page>
-            <SearchUser onClickSearch={searchForAUser} />
+            <SearchUser setProfile={setProfile} />
             <h1>Hallo, {profile.login} </h1>
             <Avatar src={profile.avatar_url} />
             <Link to={'/users/' + profile.login + '/repos'}>Repositories</Link>
