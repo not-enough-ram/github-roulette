@@ -8,15 +8,14 @@ import PullPage from './components/PullPage'
 
 function App() {
   const [profile, setProfile] = useState({})
-  const [error, setError] = useState('')
-  // const [url, setUrl] = useHistory()
+  // const [error, setError] = useState('')
 
   const searchForAUser = profile => {
     githubApi
       .get('https://api.github.com/users/' + profile)
       .then(response => response.data)
       .then(setProfile)
-      .catch(error => setError(error.response.status))
+    //.catch(error => setError(error.response.status))
   }
 
   return (
@@ -39,8 +38,9 @@ function App() {
         <Route path={['/', '/home']}>
           <Page>
             <SearchUser onClickSearch={searchForAUser} />
-            <h1>Hallo, {profile.login} </h1>
+            <h1>hello {profile.login} </h1>
             <Avatar src={profile.avatar_url} />
+
             <Link to={'/users/' + profile.login + '/repos'}>Repositories</Link>
           </Page>
         </Route>

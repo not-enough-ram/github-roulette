@@ -8,5 +8,6 @@ export default createGlobalStyle`
   html, body {
     margin: 0;
     padding: 0;
+    background: url("./img/github-logo.png") lightgray;
   }
 `

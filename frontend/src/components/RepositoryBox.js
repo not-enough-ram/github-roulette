@@ -10,7 +10,7 @@ export default function RepositoryBox() {
     githubApi
       .get('https://api.github.com/users/' + username + '/repos')
       .then(response => setRepos(response.data))
-  }, [])
+  })
 
   return (
     <section>

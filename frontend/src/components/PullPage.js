@@ -17,7 +17,7 @@ export default function PullPage() {
           '/pulls?state=all'
       )
       .then(response => setPullRequests(response.data))
-  }, [])
+  })
 
   return (
     <section>
